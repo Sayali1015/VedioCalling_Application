@@ -1,22 +1,34 @@
-import React, { useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import "./App.css";
 
-const ZegoCloud = () => {
-    const [value, setValue] = useState();
-    const navigate = useNavigate();
-    const joinRoom = useCallback(
-      () => {
-        navigate(`/room/${value}`);
-      },
-      [navigate,value]
-    )
-    
+function ZegoCloud() {
+  const [roomId, setRoomId] = useState("");
+  const navigate = useNavigate();
+
+  const joinRoom = () => {
+    if (roomId.trim()) {
+      navigate(`/room/${roomId}`);
+    }
+  };
+
   return (
-    <>
-    <input type="text" placeholder='enter room id' onChange={(e)=>setValue(e.target.value)}/>
-    <button onClick={joinRoom}>Join</button>
-    </>
-  )
+    <div className="app">
+      <div className="join-container">
+        <h2>Join Room</h2>
+        <input
+          type="text"
+          placeholder="Enter your name to join"
+          className="room-input"
+          value={roomId}
+          onChange={(e) => setRoomId(e.target.value)}
+        />
+        <button className="join-btn" onClick={joinRoom}>
+          Join
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default ZegoCloud
+export default ZegoCloud;
